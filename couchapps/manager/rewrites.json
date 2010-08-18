@@ -1,0 +1,24 @@
+[   
+    {
+        "from": "/couchit",
+        "to": "../../"
+    },
+    {
+        "from": "/couchit/*",
+        "to": "../../*"
+    },
+    {
+        "from": "",
+        "to": "/index.html"
+    },
+
+    {
+        "from": "/",
+        "to": "/index.html"
+    },
+    {
+        "from": "*",
+        "to": "/*"
+    }
+
+]

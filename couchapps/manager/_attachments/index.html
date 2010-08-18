@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8" />
+    <title>couch.it - Welcome</title>
+    <link rel="stylesheet" href="css/couchit.css" type="text/css">
+    <script src='js/modernizr-1.5.min.js' type='text/javascript' type='text/javascript'></script>
+
+  </head>
+  <body>
+
+    <div id="home">
+        <h1>Couch.it</h1>
+        <form id="fcreate">
+            <div class="cname_row"><input type="text" id="cname" name="cname" value="">.<span id="hostname"></span><span class="help"></span></div>
+            <div class="error"></div>
+            <input type="submit" value="Create a site" tabindex="2"> 
+        </form>
+
+        <div id="wait-creation" class="hidden">
+            <h1>Site creation is running...</h1>
+        </div>
+
+    </div>
+    <script src="settings.js"></script>
+    <script src="vendor/couchapp/loader.js"></script>
+    <script src="js/couchit.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    $.couch.app(function(app) {
+        new $.couchit.CreateSite(app); 
+        }, { design: settings.design, db: settings.db} );
+    </script>
+    </body>
+</html>
