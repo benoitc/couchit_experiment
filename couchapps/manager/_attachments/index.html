@@ -13,8 +13,20 @@
         <h1>Couch.it</h1>
         <form id="fcreate">
             <div class="cname_row"><input type="text" id="cname" name="cname" value="">.<span id="hostname"></span><span class="help"></span></div>
-            <div class="error"></div>
-            <input type="submit" value="Create a site" tabindex="2"> 
+            <div id="options" class="hidden">
+                <p><label for="guestpwd">Guest Password</label><input
+                type="password" id="guestpwd" value=""></p>
+                <p><label>Guests Can: <span class="optionnal">(can be changed
+                        later</span>)</label></p>
+                <p><input type="checkbox" id="canwrite" value="1"
+                checked="checked">Write content<input type="checkbox"
+                id="canupload" value="1" checked="checked">Add Files<input type="checkbox"
+                id="candelete" value="1" checked="checked">Delete</p>
+            
+            </div>
+            <a href="#" class="additional">+ Additional options (password, permissions)</a>
+            
+            <input type="submit" value="Create a Site »" tabindex="2"> 
         </form>
 
         <div id="wait-creation" class="hidden">
