@@ -43,12 +43,14 @@
             $.ajax({
                 type: "GET",
                 url: "http://"+ cname + "." + settings.hostname,
+                async: false,
                 success: function() {
                     self.redirectToSite(cname);
                 },
                 error: function() {
+                    console.log("error loop");
                     setTimeout(function() {
-                        self.waitCreation(cname);
+                        return self.waitCreation(cname);
                     }, 200);
                 }
             });
