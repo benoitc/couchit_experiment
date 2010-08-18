@@ -91,32 +91,36 @@ create_site(Name, Site) ->
     case couch_server:create(Name, 
             [{user_ctx, #user_ctx{roles=[<<"_admin">>]}}]) of
     {ok, Db} ->
-        case proplists:get_value(<<"guest_password">>, Site) of
-        <<"">> -> ok;
-        Password ->
+        CanWrite = proplists:get_value(<<"can_write">>, Site, 1),
+        CanUpload =  proplists:get_value(<<"can_upload">>, Site, 1),
+        CanDelete =  proplists:get_value(<<"can_delete">>, Site, 1),
+        SecObj = {[
+            {<<"site_name">>, Name},
+            {<<"guest">>, {[
+                {<<"can_write">>, CanWrite},
+                {<<"can_delete">>, CanDelete},
+                {<<"can_upload">>, CanUpload }
+            ]}}
+        ]},
+
+        SecObj1 = case proplists:get_value(<<"guest_password">>, Site) of
+        <<"">> -> 
+            SecObj;
+        Password when is_binary(Password) ->
             GuestUser = user_doc(Name, Password),
-            CanWrite = proplists:get_value(<<"can_write">>, Site, 1),
-            CanUpload =  proplists:get_value(<<"can_upload">>, Site, 1),
-            CanDelete =  proplists:get_value(<<"can_delete">>, Site, 1),
             
             % create user
             ok = save_user(GuestUser),
 
-            % The site is private, create a security object.
-            % we also save site preferences in SecObj
-            SecObj = {[
-                {<<"guest">>, {[
-                    {<<"can_write">>, CanWrite},
-                    {<<"can_delete">>, CanDelete},
-                    {<<"can_upload">>, CanUpload }
-                ]}},
-                {<<"readers">>, {[
-                    {<<"names">>, [Name]}
-                ]}}
-            ]},
-            ok = couch_db:set_security(Db, SecObj)
+            % The site is private, create a reader.
+            couchit_util:extend(<<"readers">>, {[{<<"names">>, [Name]}]},
+                SecObj);
+        _ ->
+            SecObj
         end,
-                        
+
+        %save the security object and close the db
+        ok = couch_db:set_security(Db, SecObj1),
         couch_db:close(Db),
 
         % finaly createthe app
@@ -154,6 +158,8 @@ user_doc(UserName, Password, Roles) ->
         {<<"type">>, <<"user">>},
         {<<"roles">>, Roles}
     ]}.
+
+
 
 start_replication(Name) ->
     CouchitDb = ?l2b(couch_config:get("couchit", "db", "couchit")),

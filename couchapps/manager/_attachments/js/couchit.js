@@ -71,7 +71,7 @@
 
             var nb_error=0;
             var cname = $("#cname").val(),
-                guest_password = $("#guestpwd").val() || 0,
+                guest_password = $("#guestpwd").val() || "",
                 can_write = $("#canwrite").val() ||0,
                 can_upload = $("#canupload").val() || 0,
                 can_delete = $("#candelete").val() || 0;
