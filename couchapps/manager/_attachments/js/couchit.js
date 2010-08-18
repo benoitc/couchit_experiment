@@ -70,7 +70,11 @@
             $(".error").removeClass("error");
 
             var nb_error=0;
-            var cname = $("#cname").val();
+            var cname = $("#cname").val(),
+                guest_password = $("#guestpwd").val() || 0,
+                can_write = $("#canwrite").val() ||0,
+                can_upload = $("#canupload").val() || 0,
+                can_delete = $("#candelete").val() || 0;
 
             if (cname.length <= 3 || !cname.match(/^(\w+)$/)) {
                 $(".cname_row span.help").html("CouchDB url invalid.").removeClass("hidden");
@@ -78,11 +82,13 @@
                 nb_error += 1;
             }
 
-           
-
             if (nb_error == 0) {
                  var site = {
-                    name: cname
+                    name: cname,
+                    guest_password: guest_password,
+                    can_write: can_write,
+                    can_upload: can_upload,
+                    can_delete: can_delete
                 };
 
                 $.ajax({
@@ -103,7 +109,22 @@
         });
 
         
-        
+        $(".additional").bind("click", function(e) {
+            e.preventDefault();
+            if ($(this).hasClass("fewer")) {
+                $("#options").addClass("hidden");
+                $(this)
+                    .html("+ Additional options (password, permissions)")
+                    .removeClass("fewer");
+            } else {
+                $("#options").removeClass("hidden");
+                $(this)
+                    .html("- Fewer options (password, permissions)")
+                    .addClass("fewer");
+            }
+            return false;
+        });
+         
 
         this.validCname();
     }
