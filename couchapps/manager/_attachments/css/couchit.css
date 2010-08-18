@@ -1,0 +1,50 @@
+body {
+    color: #444;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: helvetica, sans-serif;
+    margin: 0 5%;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:visited, a:hover, a:active {
+    color: #c7423b;
+}
+
+.error span {
+    display: block;
+    clear: left;
+    width: 100%;
+    color: #c7423b;
+    margin-bottom: 0.2em;
+}
+.error span {
+    display: block;
+    clear: left;
+    width: 100%;
+    color: #c7423b;
+    margin-bottom: 0.2em;
+}
+
+
+#home form {
+    display: block;
+    width: 450px;
+    margin: 0 auto 0 auto;
+}
+
+.cname_row {
+    border: 1px solid #ccc;
+}
+
+#cname {
+    border: 0;
+    width: 325px;
+}
+
+.hidden { display: none; }
+.hidden * { display: none; }

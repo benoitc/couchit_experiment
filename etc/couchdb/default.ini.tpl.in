@@ -20,8 +20,9 @@ max_connections = 2048
 authentication_handlers = {couch_httpd_oauth, oauth_authentication_handler}, {couch_httpd_auth, cookie_authentication_handler}, {couch_httpd_auth, default_authentication_handler}
 default_handler = {couch_httpd_db, handle_request}
 secure_rewrites = true
-vhost_global_handlers = _utils, _uuids, _session, _oauth, _users
+vhost_global_handlers = _utils, _uuids, _session, _oauth, _users, _site
 allow_jsonp = false
+redirect_vhost_handler = {couchit_httpd, vhost_handler}
 
 [ssl]
 port = 6984
@@ -81,6 +82,7 @@ _stats = {couch_httpd_stats_handlers, handle_stats_req}
 _log = {couch_httpd_misc_handlers, handle_log_req}
 _session = {couch_httpd_auth, handle_session_req}
 _oauth = {couch_httpd_oauth, handle_oauth_req}
+_site = {couchit_httpd, handle_site_req}
 
 [httpd_db_handlers]
 _view_cleanup = {couch_httpd_db, handle_view_cleanup_req}
