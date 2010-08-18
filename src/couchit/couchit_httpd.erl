@@ -128,8 +128,7 @@ start_replication(Name) ->
             {<<"_id">>, couch_uuids:new()},
             {<<"source">>, CouchitDb},
             {<<"target">>, Name},
-            {<<"doc_ids">>, [<<"_design/couchit">>]},
-            {<<"continuous">>, true}
+            {<<"doc_ids">>, [<<"_design/couchit">>]}
     ]},
 
     couch_db:update_doc(RepDb, couch_doc:from_json_obj(RepDoc), []),
