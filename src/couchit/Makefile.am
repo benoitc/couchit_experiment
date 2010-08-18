@@ -13,10 +13,12 @@
 couchitebindir = $(localerlanglibdir)/couchit/ebin
 
 couchit_file_collection = \
-	couchit_httpd.erl 
+	couchit_httpd.erl \
+	couchit_util.erl
 
 couchitebin_make_generated_file_list = \
-	couchit_httpd.beam
+	couchit_httpd.beam \
+	couchit_util.beam
 
 couchitebin_DATA = \
 	$(couchitebin_make_generated_file_list)
